@@ -15,7 +15,7 @@ import EditData from "./Modals/EditData";
 export default function Index() {
   const componentRef = useRef();
   const [data, setData] = useState([]);
-  const [updated, setUpdated] = useState(false);
+  // const [updated, setUpdated] = useState(false);
 
   const handleEdit = (item) => {
     alert("item: " + item);
@@ -109,19 +109,23 @@ export default function Index() {
 
       <div className="Index">
         <div className="title">
-          <h2>This is my data</h2>
+          <h3>This is my data</h3>
 
-          <button className="btn btn-main" onClick={handleDisplayAddModel}>
-            <PlusOutlined />
-            Add data
-          </button>
+          {isAuth() ? (
+            <button className="btn btn-main" onClick={handleDisplayAddModel}>
+              <PlusOutlined />
+              Add data
+            </button>
+          ) : (
+            false
+          )}
         </div>
 
         <div className="tableItems" ref={componentRef}>
           {isAuth() ? (
             <Table columns={columns} dataSource={data} pagination={true} />
           ) : (
-            <h2>There is no data in the database.</h2>
+            <p>There is no data in the database.</p>
           )}
 
           {/* Add Data */}

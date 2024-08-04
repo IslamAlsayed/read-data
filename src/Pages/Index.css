@@ -22,3 +22,9 @@
     color: var(--light-color) !important;
     background-color: var(--main-2-color) !important;
 }
+
+.Index .tableItems p {
+    display: grid;
+    place-content: center;
+    height: calc(100svh - 300px);
+}
