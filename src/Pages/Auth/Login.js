@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { register } from "../../axiosConfig/Auth";
+import { login } from "../../axiosConfig/Auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("islam@gmail.com");
+  const [password, setPassword] = useState("test1234");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -19,12 +19,13 @@ export default function Login() {
     }
 
     try {
-      const data = await register(email, password);
+      const response = await login(email, password);
 
-      if (data.status === "success") {
+      if (response.status === 200) {
         setEmail("");
         setPassword("");
-        navigate("/index");
+        setError(response.message);
+        setTimeout(() => navigate("/index"), 500);
       }
     } catch (error) {
       setError(error.message);

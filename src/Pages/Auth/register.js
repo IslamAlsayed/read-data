@@ -2,33 +2,40 @@ import { useState } from "react";
 import { register } from "../../axiosConfig/Auth";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password_confirmation, setPassword_confirmation] = useState("");
+  const [name, setName] = useState("islam");
+  const [email, setEmail] = useState("islam@gmail.com");
+  const [password, setPassword] = useState("test1234");
+  const [password_confirmation, setPassword_confirmation] =
+    useState("test1234");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!name || !email || !password || password_confirmation) {
+    if (!name || !email || !password || !password_confirmation) {
       setError("This Faileds are required");
       setTimeout(() => setError(""), 3000);
       return;
     }
 
     try {
-      const data = await register(email, password);
+      const response = await register(
+        name,
+        email,
+        password,
+        password_confirmation
+      );
 
-      if (data.status === "success") {
+      if (response.status === 201) {
         setName("");
         setEmail("");
         setPassword("");
         setPassword_confirmation("");
-        navigate("/index");
+        setError(response.message);
+        setTimeout(() => navigate("/auth/login"), 500);
       }
     } catch (error) {
       setError(error.message);
@@ -54,6 +61,7 @@ export default function Login() {
               id="name"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              required
             />
           </div>
           <div className="group-input">
@@ -64,6 +72,7 @@ export default function Login() {
               id="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              required
             />
           </div>
           <div className="group-input">
@@ -74,6 +83,7 @@ export default function Login() {
               id="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
             />
           </div>
           <div className="group-input">
@@ -84,6 +94,7 @@ export default function Login() {
               id="password_confirmation"
               value={password_confirmation}
               onChange={(event) => setPassword_confirmation(event.target.value)}
+              required
             />
           </div>
           <div className="group-input">

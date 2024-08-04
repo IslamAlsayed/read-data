@@ -20,12 +20,12 @@ export const register = async (
       {
         headers: {
           Accept: "application/json",
-          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
         },
       }
     );
 
-    return response.data;
+    console.log("login", response);
+    return response;
   } catch (error) {
     if (error.response) {
       console.error("Error response:", error.response.data);
@@ -39,25 +39,17 @@ export const register = async (
 
 export const login = async (email, password) => {
   try {
-    const response = await axios.post(
-      basicURL + "login",
-      {
-        email: email,
-        password: password,
-      },
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
-        },
-      }
-    );
+    const response = await axios.post(basicURL + "login", {
+      email: email,
+      password: password,
+    });
 
     // Setting cookies
-    Cookies.set("token_shipment", response.data.access_token);
-    Cookies.set("admin_shipment", JSON.stringify(response.data.customer));
+    Cookies.set("token_shipment", response.data.token);
+    Cookies.set("admin_shipment", JSON.stringify(response.data.data));
 
-    return response.data;
+    console.log("login", response);
+    return response;
   } catch (error) {
     if (error.response) {
       console.error("Error response:", error.response.data);
@@ -69,34 +61,12 @@ export const login = async (email, password) => {
   }
 };
 
-export const logout = async (email, password) => {
-  try {
-    const response = await axios.post(
-      basicURL + "logout",
-      {
-        token: email,
-        password: password,
-      },
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
-        },
-      }
-    );
-
+export const logout = () => {
+  return new Promise((resolve) => {
     Cookies.remove("token_shipment");
     Cookies.remove("admin_shipment");
-    return response.data;
-  } catch (error) {
-    if (error.response) {
-      console.error("Error response:", error.response.data);
-      throw new Error(error.response.data.message || "An error occurred");
-    } else {
-      console.error("Error occurred:", error.message);
-      throw new Error("An error occurred");
-    }
-  }
+    resolve({ message: "Logged out successfully" });
+  });
 };
 
 export const getUser = () => {

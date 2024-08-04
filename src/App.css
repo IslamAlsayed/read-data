@@ -21,7 +21,6 @@
 
 body {
   color: var(--dark-color);
-  /* background-color: var(--brown-color); */
 }
 
 a {
@@ -48,6 +47,7 @@ button {
   transition: var(--transition-2);
 }
 
+/* 
 .btn {
   border: none;
   outline: none;
@@ -77,25 +77,7 @@ button {
 .site-name,
 .company-name {
   font-weight: bold;
-  color: var(--main-2-color);
 }
 
-/*! boots class */
-.flex-between {
-  gap: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.radius-3 {
-  border-radius: 3px;
-}
-
-.radius-7 {
-  border-radius: 7px;
-}
-
-.radius-50 {
-  border-radius: 50%;
-}
+*/

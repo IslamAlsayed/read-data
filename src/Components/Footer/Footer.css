@@ -1,54 +1,8 @@
 footer {
-    padding: 20px;
+    height: 50px;
     display: grid;
-    background-color: var(--light-color);
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
-}
-
-.section {
-    margin: 10px;
-}
-
-.section h4 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: var(--main-2-color);
-}
-
-.section ul {
-    padding: 0;
-}
-
-.section ul li {
-    margin: 5px 0;
-}
-
-.section ul li a {
-    transition: var(--transition-2);
-}
-
-.section ul li a:hover {
-    color: var(--main-2-color);
-}
-
-.section ul li a img {
-    width: fit-content;
-    min-width: 150px;
-    min-height: 35px;
+    padding-inline: 20px;
+    place-content: center;
     color: var(--light-color);
-    background-color: var(--main-2-color);
-}
-
-.section ul li a i {
-    margin-right: 5px;
-}
-
-.section p {
-    margin: 10px 0;
-}
-
-.section.follow ul {
-    gap: 5px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    background-color: var(--main-color);
 }

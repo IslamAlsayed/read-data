@@ -1,0 +1,24 @@
+.Index {
+    width: 100%;
+    min-height: calc(100svh - 120px);
+}
+
+.Index .title {
+    gap: 15px;
+    display: flex;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Index .title button {
+    color: var(--light-color);
+    background-color: var(--main-color);
+}
+
+.Index .title button:hover {
+    color: var(--light-color) !important;
+    background-color: var(--main-2-color) !important;
+}
