@@ -1,6 +1,5 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-
 const basicURL = "http://127.0.0.1:8000/";
 
 export const register = async (
@@ -10,12 +9,21 @@ export const register = async (
   password_confirmation
 ) => {
   try {
-    const response = await axios.post(basicURL + "login", {
-      name: name,
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation,
-    });
+    const response = await axios.post(
+      basicURL + "register",
+      {
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -31,10 +39,19 @@ export const register = async (
 
 export const login = async (email, password) => {
   try {
-    const response = await axios.post(basicURL + "login", {
-      email: email,
-      password: password,
-    });
+    const response = await axios.post(
+      basicURL + "login",
+      {
+        email: email,
+        password: password,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
+        },
+      }
+    );
 
     // Setting cookies
     Cookies.set("token_shipment", response.data.access_token);
@@ -52,12 +69,34 @@ export const login = async (email, password) => {
   }
 };
 
-export const logout = () => {
-  return new Promise((resolve) => {
+export const logout = async (email, password) => {
+  try {
+    const response = await axios.post(
+      basicURL + "logout",
+      {
+        token: email,
+        password: password,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${Cookies.get("token_shipment") || null}`,
+        },
+      }
+    );
+
     Cookies.remove("token_shipment");
     Cookies.remove("admin_shipment");
-    resolve({ message: "Logged out successfully" });
-  });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.data);
+      throw new Error(error.response.data.message || "An error occurred");
+    } else {
+      console.error("Error occurred:", error.message);
+      throw new Error("An error occurred");
+    }
+  }
 };
 
 export const getUser = () => {
