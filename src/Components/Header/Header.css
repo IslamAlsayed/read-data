@@ -1,0 +1,75 @@
+.Header {
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    padding-inline: 20px;
+    transform: translateY(-100%);
+    transition: var(--transition-2);
+    background-color: var(--main-color);
+}
+
+.Header.visible {
+    transform: translateY(0);
+}
+
+.Header.hidden {
+    transform: translateY(-100%);
+}
+
+.Header.main {
+    background-color: var(--main-2-color);
+}
+
+.Header .logo {
+    color: var(--main-2-color);
+    color: var(--light-color);
+}
+
+.Header .navbar .list li {
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    position: relative;
+    margin-left: 5px;
+}
+
+.Header .navbar .list li::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: var(--transition-4);
+    background-color: var(--light-color);
+}
+
+.Header .navbar .list li:hover::after,
+.Header .navbar .list li.active::after {
+    width: 100%;
+}
+
+.Header .navbar a {
+    letter-spacing: .5px;
+    color: var(--light-color);
+}
+
+.Header .navbar .auth a {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    display: grid;
+    border-radius: 50%;
+    place-content: center;
+    color: var(--main-color);
+    background-color: var(--light-color);
+
+    &:active {
+        color: var(--light-color);
+        background-color: var(--main-color);
+    }
+}
